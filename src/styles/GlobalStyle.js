@@ -19,7 +19,13 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
   
-  html { font-size: 10px; }
+  html {
+    font-size: 10px;
+    
+    @media (max-width: 600px) {
+      font-size: 9px;
+    }
+  }
   
   body {
     background-color: ${({ theme }) => theme.pageBackground};
