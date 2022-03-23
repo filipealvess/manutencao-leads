@@ -1,10 +1,14 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import AppRoutes from './routes';
+import GlobalStyle from './styles/GlobalStyle';
+import theme from './styles/Theme';
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<h1>Manutenção de Leads</h1>} />
-    </Routes>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <AppRoutes />
+    </ThemeProvider>
   );
 }
