@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Moon } from 'react-feather';
-import HeaderWrapper, { HeaderContent, LogoContent, LogoWrapper, PageTitle, ThemeButton } from './styles';
+import IconButton from '../IconButton';
+import HeaderWrapper, { HeaderContent, LogoContent, LogoWrapper, PageTitle } from './styles';
 
 export default function Header({ title = '' }) {
   const logo = require('../../assets/logo.svg');
@@ -24,9 +25,7 @@ export default function Header({ title = '' }) {
           <PageTitle>{title}</PageTitle>
         </LogoWrapper>
 
-        <ThemeButton type="button">
-          <Moon />
-        </ThemeButton>
+        <IconButton icon={<Moon />} />
       </HeaderContent>
     </HeaderWrapper>
   );

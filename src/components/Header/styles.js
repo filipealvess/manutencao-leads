@@ -49,19 +49,4 @@ export const PageTitle = styled.p`
   font-weight: 600;
 `;
 
-export const ThemeButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: ${({ theme }) => theme.sectionBackground};
-  color: ${({ theme }) => theme.text};
-  transition: 0.3s background-color;
-  
-  &:hover {
-    background-color: ${({ theme }) => theme.lightBlue};
-  }
-`;
-
 export default HeaderWrapper;
