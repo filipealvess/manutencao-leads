@@ -5,6 +5,7 @@ const theme = {
   sectionBorderColor: '#DEDEDE',
   inputBorderColor: '#AEAEAE',
   inputBackground: '#FFFFFF',
+  buttonHover: '#474DC0',
   accent: '#5A60D0',
   red: '#FE6262',
   green: '#37CC3D',

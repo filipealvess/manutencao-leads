@@ -8,6 +8,10 @@ const FormWrapper = styled.form`
   background-color: ${({ theme }) => theme.sectionBackground};
   border: 1px solid ${({ theme }) => theme.sectionBorderColor};
   border-radius: 5px;
+
+  @media (max-width: 600px) {
+    padding: 15px;
+  }
 `;
 
 export const Title = styled.h2`

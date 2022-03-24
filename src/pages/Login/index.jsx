@@ -4,6 +4,7 @@ import Main from '../../components/Main';
 import Form from '../../components/Form';
 import Field from '../../components/Field';
 import PasswordFeedback from '../../components/PasswordFeedback';
+import PrimaryButton from '../../components/PrimaryButton';
 
 export default function Login() {
   return (
@@ -17,6 +18,8 @@ export default function Login() {
           <Field label="Confirmação de senha" placeholder="Sua senha" type="password" />
 
           <PasswordFeedback />
+
+          <PrimaryButton text="Entrar" />
         </Form>
       </Main>
     </React.Fragment>
