@@ -26,21 +26,27 @@ const LeadsListWrapper = styled.article`
   }
 `;
 
-export const Title = styled.p`
+export const Header = styled.header`
   flex-grow: 1;
   padding: 10px 20px;
   margin-bottom: 15px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.sectionBackground};
-  font-weight: 500;
-  text-align: center;
   
   @media (max-width: 800px) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: left;
     cursor: pointer;
+  }
+`;
+
+export const Title = styled.p`
+  font-weight: 500;
+  text-align: center;
+
+  @media (max-width: 800px) {
+    text-align: left;
   }
 `;
 

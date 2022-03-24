@@ -1,20 +1,20 @@
 import React from 'react';
 import { ChevronDown, CornerRightUp } from 'react-feather';
-import LeadsListWrapper, { Amount, Details, Item, Title } from './styles';
+import LeadsListWrapper, { Amount, Details, Item, Header, Title } from './styles';
 
 export default function LeadsList({ title, itemsAreBlocked = false }) {
   const icon = <CornerRightUp size={20} />;
 
   return (
     <LeadsListWrapper>
-      <Title>
-        {title}
+      <Header>
+        <Title>{title}</Title>
 
         <Details>
           <Amount>3</Amount>
           <button><ChevronDown /></button>
         </Details>
-      </Title>
+      </Header>
 
       <ul>
         <Item isBlocked={itemsAreBlocked}>Org. Internacionais {icon}</Item>
