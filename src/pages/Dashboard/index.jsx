@@ -2,6 +2,7 @@ import React from 'react';
 import LeadsHeader from '../../components/LeadsHeader';
 import Header from '../../components/Header';
 import Main from '../../components/Main';
+import LeadsGrid from '../../components/LeadsGrid';
 
 export default function Dashboard() {
   return (
@@ -10,6 +11,8 @@ export default function Dashboard() {
 
       <Main>
         <LeadsHeader />
+
+        <LeadsGrid />
       </Main>
     </React.Fragment>
   );
