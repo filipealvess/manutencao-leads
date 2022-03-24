@@ -3,6 +3,7 @@ import Header from '../../components/Header';
 import Main from '../../components/Main';
 import Form from '../../components/Form';
 import Field from '../../components/Field';
+import PasswordFeedback from '../../components/PasswordFeedback';
 
 export default function Login() {
   return (
@@ -14,6 +15,8 @@ export default function Login() {
           <Field label="Usuário" placeholder="Seu usuário" />
           <Field label="Senha" placeholder="Sua senha" type="password" />
           <Field label="Confirmação de senha" placeholder="Sua senha" type="password" />
+
+          <PasswordFeedback />
         </Form>
       </Main>
     </React.Fragment>

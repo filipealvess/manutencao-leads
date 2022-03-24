@@ -13,6 +13,7 @@ export const InputWrapper = styled.div`
   margin-top: 5px;
   border: 1px solid ${({ theme }) => theme.inputBorderColor};
   border-radius: 5px;
+  background-color: ${({ theme }) => theme.inputBackground};
   cursor: text;
   transition: 0.2s border-color;
 

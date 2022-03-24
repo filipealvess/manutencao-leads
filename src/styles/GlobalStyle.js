@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.6rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
+    list-style: none;
     box-sizing: border-box;
   }
   

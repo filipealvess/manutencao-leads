@@ -4,6 +4,7 @@ const theme = {
   sectionBackground: '#F9F9F9',
   sectionBorderColor: '#DEDEDE',
   inputBorderColor: '#AEAEAE',
+  inputBackground: '#FFFFFF',
   accent: '#5A60D0',
   red: '#FE6262',
   green: '#37CC3D',
