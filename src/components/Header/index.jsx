@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { Moon } from 'react-feather';
 import IconButton from '../IconButton';
 import HeaderWrapper, { HeaderContent, LogoContent, LogoWrapper, PageTitle } from './styles';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function Header({ title = '' }) {
+  const { toggleTheme } = useTheme();
   const logo = require('../../assets/logo.svg');
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function Header({ title = '' }) {
           <PageTitle>{title}</PageTitle>
         </LogoWrapper>
 
-        <IconButton icon={<Moon />} />
+        <IconButton icon={<Moon />} onClick={toggleTheme} />
       </HeaderContent>
     </HeaderWrapper>
   );
