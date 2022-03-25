@@ -14,6 +14,8 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     list-style: none;
     box-sizing: border-box;
+    transition-duration: 0.3s;
+    transition-property: background-color, color, border-color;
   }
   
   button {
