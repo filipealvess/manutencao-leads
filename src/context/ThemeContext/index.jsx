@@ -7,14 +7,14 @@ export default function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(appTheme.light);
 
   useEffect(() => {
-    const savedTheme = JSON.parse(localStorage.getItem('manutencao_leads_theme'));
+    const savedTheme = JSON.parse(localStorage.getItem('theme'));
     const newTheme = savedTheme ? savedTheme : appTheme.light;
 
     setTheme(newTheme);
   }, []);
   
   useEffect(() => {
-    localStorage.setItem('manutencao_leads_theme', JSON.stringify(theme));
+    localStorage.setItem('theme', JSON.stringify(theme));
   }, [theme]);
 
   function toggleTheme() {
