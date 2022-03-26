@@ -1,6 +1,7 @@
 const global = {
   red: '#FE6262',
   green: '#37CC3D',
+  yellow: '#EBBC16',
   lightBlue: '#C9DCF2',
   inputBorderColor: '#AEAEAE'
 }

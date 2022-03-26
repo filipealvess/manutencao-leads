@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { useTheme } from './context/ThemeContext';
 import AppRoutes from './routes';
 import GlobalStyle from './styles/GlobalStyle';
+import AuthContext from './context/AuthContext';
 
 export default function App() {
   const { theme } = useTheme();
@@ -10,7 +11,10 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <AppRoutes />
+
+      <AuthContext>
+        <AppRoutes />
+      </AuthContext>
     </ThemeProvider>
   );
 }
