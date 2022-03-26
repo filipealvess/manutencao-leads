@@ -1,7 +1,7 @@
 export function saveUser(userName) {
-  localStorage.setItem('user', userName);
+  localStorage.setItem('manutencao_leads_user', userName);
 }
 
 export function getUser() {
-  return localStorage.getItem('user');
+  return localStorage.getItem('manutencao_leads_user');
 }
