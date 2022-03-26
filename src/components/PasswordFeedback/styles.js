@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const PasswordFeedbackWrapper = styled.section`
   padding: 20px;
@@ -30,14 +30,22 @@ export const Feedback = styled.p`
 `;
 
 export const Status = styled.span`
-  color: ${({ theme }) => theme.red};
   font-weight: 600;
+  color: ${({ theme, level }) => {
+    if (level === 1) return theme.red;
+
+    if (level === 2) return theme.yellow;
+    
+    if (level === 3) return theme.green;
+  }}
 `;
 
 export const Progress = styled.div`
   display: flex;
   gap: 5px;
   width: 35%;
+
+  ${buildLevelColor}
 
   @media (max-width: 500px) {
     width: 100%;
@@ -51,16 +59,21 @@ export const Level = styled.span`
   border-radius: 20px;
   background-color: ${({ theme }) => theme.red};
   opacity: 0.5;
+  transition: 0.3s opacity;
+
+  ${({ active }) => active && css`opacity: 1;`}
 `;
 
-export const Rule = styled.li`
-  display: flex;
-  align-items: center;
-  font-size: 1.4rem;
-
-  & + & { margin-top: 7px; }
-
-  & * { margin-right: 5px; }
-`;
+function buildLevelColor({ theme, level }) {
+  if (level === 2) {
+    return css`
+      & ${Level} { background-color: ${theme.yellow}; }
+    `;
+  } else if (level === 3) {
+    return css`
+      & ${Level} { background-color: ${theme.green}; }
+    `;
+  }
+}
 
 export default PasswordFeedbackWrapper;
