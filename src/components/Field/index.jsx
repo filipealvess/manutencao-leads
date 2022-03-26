@@ -9,7 +9,8 @@ export default function Field({
   placeholder,
   type = 'text',
   value = '',
-  onChange = () => {}
+  onChange = () => {},
+  name
 }) {
   const [inputIsFocus, setInputIsFocus] = useState(false);
   const [inputType, setIinputType] = useState(type);
@@ -17,17 +18,11 @@ export default function Field({
   const { passwordIsVisible, setPasswordIsVisible } = usePassword();
 
   useEffect(() => {
-    setIinputType(passwordIsVisible ? 'text' : 'password');
-    setIcon(passwordIsVisible ? <EyeOff /> : <Eye />);
+    if (type === 'password') {
+      setIinputType(passwordIsVisible ? 'text' : 'password');
+      setIcon(passwordIsVisible ? <EyeOff /> : <Eye />);
+    }
   }, [passwordIsVisible]);
-
-  function handleInputChange({ target }) {
-    onChange(target.value);
-  }
-
-  function handleIconButtonClick() {
-    setPasswordIsVisible(!passwordIsVisible);
-  }
 
   return (
     <FieldWrapper>
@@ -35,9 +30,10 @@ export default function Field({
 
       <InputWrapper isFocus={inputIsFocus}>
         <Input
+          name={name}
           type={inputType}
           value={value}
-          onChange={handleInputChange}
+          onChange={onChange}
           placeholder={placeholder}
           required
           onFocus={() => setInputIsFocus(true)}
@@ -49,7 +45,7 @@ export default function Field({
           <IconButton
             icon={icon}
             buttonHasTransition={false}
-            onClick={handleIconButtonClick}
+            onClick={() => setPasswordIsVisible(!passwordIsVisible)}
           />
         }
       </InputWrapper>
