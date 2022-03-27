@@ -15,7 +15,7 @@ function buildStyle({ theme, buttonType, buttonHasTransition }) {
   let color = text;
   let hover = css`&:hover { border-color: ${lightBlue} }`;
 
-  if (buttonType === 'delete') {
+  if (buttonType === 'remove') {
     backgroundColor = red;
     color = '#FFFFFF';
     hover = css`&:hover { background-color: ${redHover}; }`;

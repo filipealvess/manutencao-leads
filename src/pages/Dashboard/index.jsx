@@ -9,7 +9,7 @@ import InfoPopup from '../../components/InfoPopup';
 import IconButton from '../../components/IconButton';
 import { Trash } from 'react-feather';
 import LeadInfos from '../../components/LeadInfos';
-import { getLeads, updateLeadStatus } from '../../controllers/leadController';
+import { getAll, remove, updateStatus } from '../../controllers/leadController';
 
 export default function Dashboard() {
   const [alertPopupIsVisible, setAlertPopupIsVisible] = useState(false);
@@ -28,20 +28,20 @@ export default function Dashboard() {
   }, [location]);
 
   function loadLeads() {
-    const savedLeads = getLeads();
+    const savedLeads = getAll();
 
     savedLeads && setLeads(savedLeads);
   }
 
-  function updateStatus(email, status) {
-    updateLeadStatus(email, status);
+  function updateLeadStatus(email, status) {
+    updateStatus(email, status);
     handleInfoPopupHide();
     loadLeads();
   }
 
   function showLeadInfo(lead, status) {
     const updateStatusFunctionValue = status !== 'Reunião Agendada'
-      ? () => updateStatus
+      ? () => updateLeadStatus
       : null;
 
     setUpdateStatusFunction(updateStatusFunctionValue);
@@ -53,6 +53,12 @@ export default function Dashboard() {
     setInfoPopupIsVisible(false);
     setUpdateStatusFunction(null);
     setSelectedLead({});
+  }
+
+  function removeLead() {
+    remove(selectedLead.email, selectedLead.status);
+    handleInfoPopupHide();
+    loadLeads();
   }
 
   return (
@@ -76,8 +82,9 @@ export default function Dashboard() {
           titlePrefix={
             <IconButton
               icon={<Trash />}
-              type="delete"
+              type="remove"
               isSmall
+              onClick={removeLead}
             />
           }
           isVisible={infoPopupIsVisible}

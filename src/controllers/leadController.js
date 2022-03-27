@@ -23,8 +23,8 @@ function getRemainingLeads(savedLeads, leadEmail, status) {
     .filter(lead => lead.email !== leadEmail);
 }
 
-export function saveLead(lead) {
-  const savedLeads = getLeads();
+export function save(lead) {
+  const savedLeads = getAll();
   let leads = {};
   
   if (savedLeads) {
@@ -38,18 +38,28 @@ export function saveLead(lead) {
   updateAllLeads(leads);
 }
 
-export function getLeads() {
+export function getAll() {
   return JSON.parse(localStorage.getItem('leads'));
 }
 
-export function updateLeadStatus(leadEmail, currentStatus) {
-  const savedLeads = getLeads();
+export function updateStatus(leadEmail, currentStatus) {
+  const savedLeads = getAll();
   const currentLead = getCurrentLead(savedLeads, leadEmail, currentStatus);
   const nextStatus = (currentStatus === 'Cliente em Potencial') ? 'Dados Confirmados' : 'Reunião Agendada';
   const newLeads = { ...savedLeads };
 
   newLeads[STATUS_LIST[currentStatus]] = getRemainingLeads(savedLeads, leadEmail, currentStatus);
   newLeads[STATUS_LIST[nextStatus]] = [ currentLead, ...savedLeads[STATUS_LIST[nextStatus]] ];
+
+  updateAllLeads(newLeads);
+}
+
+export function remove(leadEmail, leadStatus) {
+  const savedLeads = getAll();
+  const remainingLeads = getRemainingLeads(savedLeads, leadEmail, leadStatus);
+  const newLeads = { ...savedLeads };
+
+  newLeads[STATUS_LIST[leadStatus]] = remainingLeads;
 
   updateAllLeads(newLeads);
 }
