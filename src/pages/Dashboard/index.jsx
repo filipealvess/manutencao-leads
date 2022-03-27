@@ -17,6 +17,8 @@ export default function Dashboard() {
   const [selectedLead, setSelectedLead] = useState({});
   const [updateStatusFunction, setUpdateStatusFunction] = useState(null);
   const [leads, setLeads] = useState([]);
+  const [alertTitle, setAlertTitle] = useState('Sucesso');
+  const [alertMessage, setAlertMessage] = useState('Lead criado com sucesso! Clique nele para ver os detalhes ;)');
   const location = useLocation();
 
   useEffect(loadLeads, []);
@@ -37,6 +39,9 @@ export default function Dashboard() {
     updateStatus(email, status);
     handleInfoPopupHide();
     loadLeads();
+    setAlertTitle('Status atualizado');
+    setAlertMessage('O status do lead foi atualizado, clique nele para ver os detalhes ;)');
+    setAlertPopupIsVisible(true);
   }
 
   function showLeadInfo(lead, status) {
@@ -47,6 +52,7 @@ export default function Dashboard() {
     setUpdateStatusFunction(updateStatusFunctionValue);
     setSelectedLead({ ...lead, status });
     setInfoPopupIsVisible(true);
+    setAlertPopupIsVisible(false);
   }
 
   function handleInfoPopupHide() {
@@ -59,6 +65,9 @@ export default function Dashboard() {
     remove(selectedLead.email, selectedLead.status);
     handleInfoPopupHide();
     loadLeads();
+    setAlertTitle('Lead excluído');
+    setAlertMessage('O lead foi excluído. Aproveite para adicionar outro à lista');
+    setAlertPopupIsVisible(true);
   }
 
   return (
@@ -71,8 +80,8 @@ export default function Dashboard() {
         <LeadsGrid onSelectLead={showLeadInfo} leads={leads} />
 
         <AlertPopup
-          title="Show!"
-          message="Lead criado com sucesso!"
+          title={alertTitle}
+          message={alertMessage}
           isVisible={alertPopupIsVisible}
           onHide={() => setAlertPopupIsVisible(false)}
         />
