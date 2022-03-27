@@ -21,7 +21,7 @@ export default function LeadsList({
   }, [items]);
 
   useEffect(() => {
-    amount > 0 && setListIsVisible(true);
+    setListIsVisible(amount > 0);
   }, [amount]);
 
   useEffect(() => {
