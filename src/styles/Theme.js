@@ -1,5 +1,6 @@
 const global = {
   red: '#FE6262',
+  redHover: '#E74A4A',
   green: '#37CC3D',
   yellow: '#EBBC16',
   lightBlue: '#C9DCF2',

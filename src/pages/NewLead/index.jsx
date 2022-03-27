@@ -8,7 +8,7 @@ import CheckboxList from '../../components/CheckboxList';
 import { opportunities } from '../../static/lead';
 import { useFormik } from 'formik';
 import AlertPopup from '../../components/AlertPopup';
-import { saveLead } from '../../controllers/leadController';
+import { save } from '../../controllers/leadController';
 import { useNavigate } from 'react-router-dom';
 
 export default function NewLead() {
@@ -21,7 +21,7 @@ export default function NewLead() {
       if (opportunitiesList.length === 0) {
         setPopupIsVisible(true);
       } else {
-        saveLead({ ...values, opportunities: opportunitiesList });
+        save({ ...values, opportunities: opportunitiesList });
         navigate('/dashboard', { state: { leadWasCreated: true } });
       }
     }

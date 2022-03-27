@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronDown, ChevronRight, CornerRightUp } from 'react-feather';
+import { ChevronDown, ChevronRight } from 'react-feather';
 import LeadsListWrapper, { Amount, Details, Item, Header, Title, List } from './styles';
 
-export default function LeadsList({ title, items, itemsAreBlocked = false }) {
+export default function LeadsList({
+  title,
+  items,
+  itemsAreBlocked = false,
+  onClick
+}) {
   const [amount, setAmount] = useState(0);
   const [listIsVisible, setListIsVisible] = useState(false);
   const [listIcon, setListIcon] = useState(<ChevronRight />);
-  const icon = <CornerRightUp size={20} />;
 
   function toggleListVisibility() {
-    if (amount > 0) {
-      setListIsVisible(!listIsVisible);
-    }
+    amount > 0 && setListIsVisible(!listIsVisible);
   }
 
   useEffect(() => {
-    if (items) {
-      setAmount(items.length);
-    }
+    items && setAmount(items.length);
   }, [items]);
 
   useEffect(() => {
-    if (amount > 0) {
-      setListIsVisible(true);
-    }
+    setListIsVisible(amount > 0);
   }, [amount]);
 
   useEffect(() => {
@@ -44,8 +42,12 @@ export default function LeadsList({ title, items, itemsAreBlocked = false }) {
       <List isVisible={listIsVisible}>
         {
           items && items.map(item => (
-            <Item isBlocked={itemsAreBlocked} key={item.email}>
-              {item.name} {icon}
+            <Item
+              isBlocked={itemsAreBlocked}
+              key={item.email}
+              onClick={() => onClick(item)}
+            >
+              {item.name}
             </Item>
           ))
         }
