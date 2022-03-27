@@ -1,7 +1,9 @@
 import React from 'react';
+import { ArrowUp } from 'react-feather';
+import IconButton from '../IconButton';
 import LeadInfosWrapper, { Name, Value } from './styles';
 
-export default function LeadInfos({ lead }) {
+export default function LeadInfos({ lead, updateStatus }) {
   return (
     <LeadInfosWrapper>
       <div>
@@ -23,6 +25,12 @@ export default function LeadInfos({ lead }) {
         <Name>Status:</Name>
         <Value>
           {lead.status}
+          {updateStatus && <IconButton
+            icon={<ArrowUp />}
+            isSmall
+            type="primary"
+            onClick={() => updateStatus(lead.email, lead.status)}
+          />}
         </Value>
       </div>
 

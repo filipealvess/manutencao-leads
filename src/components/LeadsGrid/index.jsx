@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import LeadsList from '../LeadsList';
 import LeadsGridWrapper from './styles';
-import { getLeads } from '../../controllers/leadController';
 
-export default function LeadsGrid({ onSelectLead }) {
-  const [leads, setLeads] = useState([]);
-
-  useEffect(() => {
-    const savedLeads = getLeads();
-
-    if (savedLeads) {
-      setLeads(savedLeads);
-    }
-  }, []);
-
+export default function LeadsGrid({ leads, onSelectLead }) {
   return (
     <LeadsGridWrapper>
       <LeadsList

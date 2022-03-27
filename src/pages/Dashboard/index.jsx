@@ -9,12 +9,17 @@ import InfoPopup from '../../components/InfoPopup';
 import IconButton from '../../components/IconButton';
 import { Trash } from 'react-feather';
 import LeadInfos from '../../components/LeadInfos';
+import { getLeads, updateLeadStatus } from '../../controllers/leadController';
 
 export default function Dashboard() {
   const [alertPopupIsVisible, setAlertPopupIsVisible] = useState(false);
   const [infoPopupIsVisible, setInfoPopupIsVisible] = useState(false);
   const [selectedLead, setSelectedLead] = useState({});
+  const [updateStatusFunction, setUpdateStatusFunction] = useState(null);
+  const [leads, setLeads] = useState([]);
   const location = useLocation();
+
+  useEffect(loadLeads, []);
 
   useEffect(() => {
     if (location.state) {
@@ -22,13 +27,31 @@ export default function Dashboard() {
     }
   }, [location]);
 
+  function loadLeads() {
+    const savedLeads = getLeads();
+
+    savedLeads && setLeads(savedLeads);
+  }
+
+  function updateStatus(email, status) {
+    updateLeadStatus(email, status);
+    handleInfoPopupHide();
+    loadLeads();
+  }
+
   function showLeadInfo(lead, status) {
+    const updateStatusFunctionValue = status !== 'Reunião Agendada'
+      ? () => updateStatus
+      : null;
+
+    setUpdateStatusFunction(updateStatusFunctionValue);
     setSelectedLead({ ...lead, status });
     setInfoPopupIsVisible(true);
   }
 
   function handleInfoPopupHide() {
     setInfoPopupIsVisible(false);
+    setUpdateStatusFunction(null);
     setSelectedLead({});
   }
 
@@ -39,7 +62,7 @@ export default function Dashboard() {
       <Main>
         <LeadsHeader />
 
-        <LeadsGrid onSelectLead={showLeadInfo} />
+        <LeadsGrid onSelectLead={showLeadInfo} leads={leads} />
 
         <AlertPopup
           title="Show!"
@@ -60,7 +83,10 @@ export default function Dashboard() {
           isVisible={infoPopupIsVisible}
           onHide={handleInfoPopupHide}
         >
-          <LeadInfos lead={selectedLead} />
+          <LeadInfos
+            lead={selectedLead}
+            updateStatus={updateStatusFunction}
+          />
         </InfoPopup>
       </Main>
     </React.Fragment>
