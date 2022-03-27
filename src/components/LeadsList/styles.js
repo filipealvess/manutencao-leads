@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 function buildItemTransition({ isBlocked }) {
   return !isBlocked && css`
@@ -65,6 +64,12 @@ export const Amount = styled.span`
   margin-right: 5px;
   font-weight: 500;
   color: ${({ theme }) => theme.accent};
+`;
+
+export const List = styled.ul`
+  @media (max-width: 800px) {
+    ${({ isVisible }) => !isVisible && css`display: none;`}
+  }
 `;
 
 export const Item = styled.li`
