@@ -15,7 +15,15 @@ export default function Field({
   const [inputIsFocus, setInputIsFocus] = useState(false);
   const [inputType, setIinputType] = useState(type);
   const [icon, setIcon] = useState(<Eye />);
-  const { passwordIsVisible, setPasswordIsVisible } = usePassword();
+  let passwordIsVisible = false;
+  let setPasswordIsVisible = () => {};
+
+  if (type === 'password') {
+    const { passwordIsVisible: prop, setPasswordIsVisible: func } = usePassword();
+
+    passwordIsVisible = prop;
+    setPasswordIsVisible = func;
+  }
 
   useEffect(() => {
     if (type === 'password') {
