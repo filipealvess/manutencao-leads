@@ -1,6 +1,8 @@
 # Manutenção de Leads
 Solução para o _case_ do processo seletivo da EloGroup. Tem como objetivo a criação de uma aplicação (_frontend_) para manutenção de _leads_.
 
+![Cover](https://user-images.githubusercontent.com/63798776/160468152-bdeea990-cd42-4f04-b1a7-bf562c56610a.png)
+
 ### :art: Design:
 O design da aplicação foi criado no Figma, tendo como inspiração o protótipo-base do _case_. Para acessar o design, [clique aqui](https://figma.com/file/tYJMUZKgb4z02Qc2u96mBJ/Manutenção-de-Leads).
 
