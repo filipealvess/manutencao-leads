@@ -1,16 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Checkbox from '../Checkbox';
-import CheckboxListWrapper, { Boxes } from './styles';
+import CheckboxListWrapper, { Boxes, Title } from './styles';
 
-export default function CheckboxList({ title, options, onChange = () => {} }) {
+export default function CheckboxList({
+  title,
+  options,
+  onChange = () => {},
+  allIsChecked = false,
+  checkAll = () => {}
+}) {
+  const [globalChecked, setGlobalChecked] = useState(null);
+
+  function handleGlobalChange() {
+      checkAll();
+      setGlobalChecked(!allIsChecked);
+  }
+
+  function handleCheckboxChange(event) {
+    setGlobalChecked(null);
+    onChange(event);
+  }
+
   return (
     <CheckboxListWrapper>
-      <p>{title}:</p>
+      <Title>
+        {title}:
+
+        <Checkbox option="Tudo" onChange={handleGlobalChange} checked={allIsChecked} />
+      </Title>
 
       <Boxes>
         {
           options.map((option, index) => (
-            <Checkbox key={index} option={option} onChange={onChange} />
+            <Checkbox
+              key={index}
+              option={option}
+              onChange={handleCheckboxChange}
+              checked={globalChecked}
+            />
           ))
         }
       </Boxes>

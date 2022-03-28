@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Main from '../../components/Main';
 import Form from '../../components/Form';
@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 export default function NewLead() {
   const [opportunitiesList, setOpportunitiesList] = useState([]);
   const [popupIsVisible, setPopupIsVisible] = useState(false);
+  const [allOpportunitiesAreChecked, setAllOpportunitiesAreChecked] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: { name: '', phone: '', email: '' },
@@ -27,6 +28,10 @@ export default function NewLead() {
     }
   });
 
+  useEffect(() => {
+    setAllOpportunitiesAreChecked(opportunitiesList.length === opportunities.length);
+  }, [opportunitiesList]);
+
   function handleCheckboxChange({ target }) {
     const { checked, value } = target;
     
@@ -34,6 +39,16 @@ export default function NewLead() {
       ? [...opportunitiesList, value]
       : opportunitiesList.filter(opportunity => opportunity !== value)
     );
+  }
+
+  function handleCheckAllOpportunities() {
+    if (allOpportunitiesAreChecked) {
+      setOpportunitiesList([]);
+      setAllOpportunitiesAreChecked(false);
+    } else {
+      setOpportunitiesList([...opportunities]);
+      setAllOpportunitiesAreChecked(true);
+    }
   }
 
   return (
@@ -72,6 +87,8 @@ export default function NewLead() {
             title="Oportunidades"
             options={opportunities}
             onChange={handleCheckboxChange}
+            allIsChecked={allOpportunitiesAreChecked}
+            checkAll={handleCheckAllOpportunities}
           />
 
           <PrimaryButton text="Salvar" />
