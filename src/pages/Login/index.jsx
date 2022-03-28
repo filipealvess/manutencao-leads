@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Main from '../../components/Main';
 import Form from '../../components/Form';
@@ -29,7 +29,7 @@ export default function Login() {
 function Content() {
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   const { level } = usePasswordStatus();
-  const { setUserIsAuthenticated } = useUser();
+  const { userIsAuthenticated, setUserIsAuthenticated } = useUser();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: { user: '', pass1: '', pass2: ''},
@@ -43,6 +43,12 @@ function Content() {
       }
     }
   });
+
+  useEffect(() => {
+    const isAuthenticated = userIsAuthenticated !== null && userIsAuthenticated;
+
+    isAuthenticated && navigate('/dashboard');
+  }, [userIsAuthenticated]);
 
   return (
     <Form title="Entrar no sistema"  onSubmit={formik.handleSubmit}>
