@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
-import { Moon } from 'react-feather';
+import React, { useEffect, useState } from 'react';
+import { Moon, Sun } from 'react-feather';
 import IconButton from '../IconButton';
 import HeaderWrapper, { HeaderContent, LogoContent, LogoWrapper, PageTitle } from './styles';
 import { useTheme } from '../../context/ThemeContext';
 
 export default function Header({ title = '' }) {
-  const { toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
+  const [icon, setIcon] = useState(<Moon />);
   const logo = require('../../assets/logo.svg');
+
+  useEffect(() => {
+    setIcon(theme.theme === 'light' ? <Moon /> : <Sun />);
+  }, [theme]);
 
   useEffect(() => {
     document.title = title;
@@ -27,7 +32,7 @@ export default function Header({ title = '' }) {
           <PageTitle>{title}</PageTitle>
         </LogoWrapper>
 
-        <IconButton icon={<Moon />} onClick={toggleTheme} ariaLabel="Alterar tema da aplicação" />
+        <IconButton icon={icon} onClick={toggleTheme} ariaLabel="Alterar tema da aplicação" />
       </HeaderContent>
     </HeaderWrapper>
   );
