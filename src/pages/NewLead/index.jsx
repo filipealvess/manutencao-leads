@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
 import Header from '../../components/Header';
 import Main from '../../components/Main';
 import Form from '../../components/Form';
 import Field from '../../components/Field';
 import PrimaryButton from '../../components/PrimaryButton';
 import CheckboxList from '../../components/CheckboxList';
-import { opportunities } from '../../static/lead';
-import { useFormik } from 'formik';
 import AlertPopup from '../../components/AlertPopup';
 import { save } from '../../controllers/leadController';
-import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/AuthContext';
+import { opportunities } from '../../static/lead';
 
 export default function NewLead() {
   const [opportunitiesList, setOpportunitiesList] = useState([]);
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [allOpportunitiesAreChecked, setAllOpportunitiesAreChecked] = useState(false);
   const navigate = useNavigate();
+  const { userIsAuthenticated } = useUser();
   const formik = useFormik({
     initialValues: { name: '', phone: '', email: '' },
     onSubmit: values => {
@@ -27,6 +29,12 @@ export default function NewLead() {
       }
     }
   });
+
+  useEffect(() => {
+    const notAuthenticated = userIsAuthenticated !== null && userIsAuthenticated === false;
+
+    notAuthenticated && navigate('/');
+  }, [userIsAuthenticated]);
 
   useEffect(() => {
     setAllOpportunitiesAreChecked(opportunitiesList.length === opportunities.length);

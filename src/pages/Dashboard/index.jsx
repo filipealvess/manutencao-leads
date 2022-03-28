@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Trash } from 'react-feather';
 import LeadsHeader from '../../components/LeadsHeader';
 import Header from '../../components/Header';
 import Main from '../../components/Main';
@@ -7,9 +8,9 @@ import LeadsGrid from '../../components/LeadsGrid';
 import AlertPopup from '../../components/AlertPopup';
 import InfoPopup from '../../components/InfoPopup';
 import IconButton from '../../components/IconButton';
-import { Trash } from 'react-feather';
 import LeadInfos from '../../components/LeadInfos';
 import { getAll, remove, updateStatus } from '../../controllers/leadController';
+import { useUser } from '../../context/AuthContext';
 
 export default function Dashboard() {
   const [alertPopupIsVisible, setAlertPopupIsVisible] = useState(false);
@@ -20,13 +21,19 @@ export default function Dashboard() {
   const [alertTitle, setAlertTitle] = useState('Sucesso');
   const [alertMessage, setAlertMessage] = useState('Lead criado com sucesso! Clique nele para ver os detalhes ;)');
   const location = useLocation();
+  const navigate = useNavigate();
+  const { userIsAuthenticated } = useUser();
+
+  useEffect(() => {
+    const notAuthenticated = userIsAuthenticated !== null && userIsAuthenticated === false;
+
+    notAuthenticated && navigate('/');
+  }, [userIsAuthenticated]);
 
   useEffect(loadLeads, []);
 
   useEffect(() => {
-    if (location.state) {
-      setAlertPopupIsVisible(location.state.leadWasCreated);
-    }
+    location.state && setAlertPopupIsVisible(location.state.leadWasCreated);
   }, [location]);
 
   function loadLeads() {
@@ -35,19 +42,21 @@ export default function Dashboard() {
     savedLeads && setLeads(savedLeads);
   }
 
-  function updateLeadStatus(email, status) {
-    updateStatus(email, status);
+  function restartUI(title, message) {
     handleInfoPopupHide();
     loadLeads();
-    setAlertTitle('Status atualizado');
-    setAlertMessage('O status do lead foi atualizado, clique nele para ver os detalhes ;)');
+    setAlertTitle(title);
+    setAlertMessage(message);
     setAlertPopupIsVisible(true);
   }
 
+  function updateLeadStatus(email, status) {
+    updateStatus(email, status);
+    restartUI('Status atualizado', 'O status do lead foi atualizado, clique nele para ver os detalhes ;)');
+  }
+
   function showLeadInfo(lead, status) {
-    const updateStatusFunctionValue = status !== 'Reunião Agendada'
-      ? () => updateLeadStatus
-      : null;
+    const updateStatusFunctionValue = status !== 'Reunião Agendada' ? () => updateLeadStatus : null;
 
     setUpdateStatusFunction(updateStatusFunctionValue);
     setSelectedLead({ ...lead, status });
@@ -63,11 +72,7 @@ export default function Dashboard() {
 
   function removeLead() {
     remove(selectedLead.email, selectedLead.status);
-    handleInfoPopupHide();
-    loadLeads();
-    setAlertTitle('Lead excluído');
-    setAlertMessage('O lead foi excluído. Aproveite para adicionar outro à lista');
-    setAlertPopupIsVisible(true);
+    restartUI('Lead excluído', 'O lead foi excluído. Aproveite para adicionar outro à lista');
   }
 
   return (
@@ -88,21 +93,11 @@ export default function Dashboard() {
 
         <InfoPopup
           title="Informações do Lead"
-          titlePrefix={
-            <IconButton
-              icon={<Trash />}
-              type="remove"
-              isSmall
-              onClick={removeLead}
-            />
-          }
+          titlePrefix={<IconButton icon={<Trash />} type="remove" isSmall onClick={removeLead} />}
           isVisible={infoPopupIsVisible}
           onHide={handleInfoPopupHide}
         >
-          <LeadInfos
-            lead={selectedLead}
-            updateStatus={updateStatusFunction}
-          />
+          <LeadInfos lead={selectedLead} updateStatus={updateStatusFunction} />
         </InfoPopup>
       </Main>
     </React.Fragment>
