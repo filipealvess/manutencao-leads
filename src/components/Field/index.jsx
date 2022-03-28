@@ -54,6 +54,7 @@ export default function Field({
             icon={icon}
             buttonHasTransition={false}
             onClick={() => setPasswordIsVisible(!passwordIsVisible)}
+            ariaLabel={`${passwordIsVisible ? 'Ocultar' : 'Mostrar'} senha`}
           />
         }
       </InputWrapper>

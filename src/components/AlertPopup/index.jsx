@@ -12,7 +12,7 @@ export default function AlertPopup({
     <AlertPopupWrapper isVisible={isVisible}>
       <Header>
         <Title>{title}</Title>
-        <button onClick={onHide} type="button">
+        <button onClick={onHide} type="button" aria-label="Fechar popup">
           <X size={20} />
         </button>
       </Header>

@@ -6,7 +6,8 @@ export default function IconButton({
   type = 'default',
   isSmall = false,
   onClick = () => {},
-  buttonHasTransition = true
+  buttonHasTransition = true,
+  ariaLabel = ''
 }) {
   return (
     <IconButtonWrapper
@@ -15,6 +16,7 @@ export default function IconButton({
       onClick={onClick}
       buttonType={type}
       isSmall={isSmall}
+      aria-label={ariaLabel}
     >
       {icon}
     </IconButtonWrapper>

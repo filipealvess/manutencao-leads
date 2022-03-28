@@ -27,7 +27,7 @@ export default function Header({ title = '' }) {
           <PageTitle>{title}</PageTitle>
         </LogoWrapper>
 
-        <IconButton icon={<Moon />} onClick={toggleTheme} />
+        <IconButton icon={<Moon />} onClick={toggleTheme} ariaLabel="Alterar tema da aplicação" />
       </HeaderContent>
     </HeaderWrapper>
   );
