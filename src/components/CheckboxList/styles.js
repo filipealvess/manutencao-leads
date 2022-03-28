@@ -15,4 +15,10 @@ export const Boxes = styled.ul`
   }
 `;
 
+export const Title = styled.p`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export default CheckboxListWrapper;
