@@ -3,11 +3,11 @@ import { Moon, Sun } from 'react-feather';
 import IconButton from '../IconButton';
 import HeaderWrapper, { HeaderContent, LogoContent, LogoWrapper, PageTitle } from './styles';
 import { useTheme } from '../../context/ThemeContext';
+import logo from '../../assets/logo.svg';
 
 export default function Header({ title = '' }) {
   const { theme, toggleTheme } = useTheme();
   const [icon, setIcon] = useState(<Moon />);
-  const logo = require('../../assets/logo.svg');
 
   useEffect(() => {
     setIcon(theme.theme === 'light' ? <Moon /> : <Sun />);
